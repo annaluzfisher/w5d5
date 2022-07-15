@@ -63,7 +63,7 @@ def directed_by_one_of(them)
   # Note: Directors appear in the 'actors' table.
   
  Movie.joins(:director).where('name IN (?)', them).select(:title ,:id)
-
+# Movie.joins(:director).where(actors: {name: them}).select
   
 end
 
@@ -78,5 +78,5 @@ def movie_names_before_1940
   # improve performance for larger queries.
   #
   # Use pluck to find the title of all movies made before 1940.
-
+Movie.where('yr < 1940').pluck(:title)
 end
