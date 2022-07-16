@@ -1,6 +1,15 @@
 def what_was_that_one_with(those_actors)
   # Find the movies starring all `those_actors` (an array of actor names).
   # Show each movie's title and id.
+  Movie
+  .select('movies.id , movies.title')
+  .joins(:actors)
+  .where("actors.name IN (?)", those_actors)
+  .group('movies.id')
+  .having('count(movies.id) =(?)', those_actors.length)
+
+  # .pluck('movies.id , movies.title').uniq
+
   
 end
 
@@ -37,4 +46,5 @@ def longest_career
   # between first and last movie). Order by actor names. Show each actor's id,
   # name, and the length of their career.
   
+
 end
